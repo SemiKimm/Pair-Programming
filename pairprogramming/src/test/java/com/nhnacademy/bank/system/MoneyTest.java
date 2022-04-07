@@ -15,7 +15,7 @@ class MoneyTest {
 
     @DisplayName("1,000원 + 1,000원 = 2,000원")
     @Test
-    void add() throws NegativeException {
+    void add() throws NegativeException, DifferentCurrency {
         Money money1 = new Money(1_000, "dollar");
         Money money2 = new Money(1_000, "dollar");
 
@@ -44,7 +44,7 @@ class MoneyTest {
 
     @DisplayName("5$ + 5$ = 10$")
     @Test
-    void add_fiveDollarPlusFiveDollar() throws NegativeException {
+    void add_fiveDollarPlusFiveDollar() throws NegativeException, DifferentCurrency {
         Money money1 = new Money(5,"dollar");
         Money money2 = new Money(5,"dollar");
         Money result = money1.add(money2);
@@ -58,6 +58,20 @@ class MoneyTest {
         assertThatThrownBy(()->money1.add(money2))
             .isInstanceOf(DifferentCurrency.class)
             .hasMessageContainingAll("different currency");
+    }
+
+
+    @DisplayName("5$ - 6$ = error")
+    @Test
+    void fiveDollarSubtractSixDollar_throwsException(){
+        Money money1 = new Money(5,"dollar");
+        Money money2 = new Money(6,"dollar");
+
+
+        assertThatThrownBy(()->money1.sub(money2))
+            .isInstanceOf()
+
+
     }
 
 
