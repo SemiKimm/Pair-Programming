@@ -21,12 +21,6 @@ class BankTest {
         bank = new Bank();
     }
 
-//    @DisplayName("은행을 통해서 환전할 수 있다.")
-//    @Test
-//    void exchange(){
-//        bank.exchange();
-//    }
-
     @DisplayName("1,000원 -환전-> 1$")
     @Test
     void exchange_thousandWonToOneDollar() throws NegativeException {
@@ -45,17 +39,23 @@ class BankTest {
 
         Money result = bank.exchange(amountDollar);
         assertThat(result.equals(amountWon)).isTrue();
-
-
     }
 
     @Test
     void exchange_decimalPointDollarToWon_1() throws NegativeException {
-        Money amountWon = new Money(BigDecimal.valueOf(5_250L), "won");
         Money amountDollar = new Money(BigDecimal.valueOf(5.25), "dollar");
 
         Money result = bank.exchange(amountDollar);
         assertThat(result.getAmount()).isEqualTo(BigDecimal.valueOf(5_250L));
+    }
+
+    @DisplayName("달러 -> 원화: 5원 이상 -> 10원으로 반올림")
+    @Test
+    void exchange_rounds_dollarToWon() throws NegativeException {
+        Money amountDollar = new Money(BigDecimal.valueOf(5.255),"dollar");
+
+        Money result = bank.exchange(amountDollar);
+        assertThat(result.getAmount()).isEqualTo(BigDecimal.valueOf(5_260));
     }
 
     @AfterEach
