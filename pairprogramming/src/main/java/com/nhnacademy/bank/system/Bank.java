@@ -5,6 +5,16 @@ import java.math.RoundingMode;
 
 public class Bank {
     public static Money exchange(Money money) throws NegativeException {
+//    public static Money exchange(Money money,Currency currency) throws NegativeException {
+//        Money money;
+//        Currency currency = money.getCurrency();
+//        if(currency.value.equals("won")) {
+//            money = currency.wonToForeignCurrency(money.getAmount(),currency);
+//        }
+//        money = currency.foreignCurrencyToWon();
+//        return money;
+
+
         if (money.getCurrency().equals("dollar")) {
             BigDecimal exchangeAmt =
                 money.getAmount().multiply(BigDecimal.valueOf(1_000)).setScale(0);
