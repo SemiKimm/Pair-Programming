@@ -1,6 +1,7 @@
 package com.nhnacademy.bank.system;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterEach;
@@ -33,6 +34,16 @@ class MoneyTest {
 
         assertThat(money1.equals(money2)).isTrue();
     }
+
+    @Test
+    void moneyIsNegative(){
+        Money money1 = new Money(-1L);
+        assertThatThrownBy(() -> new Money(-1L))
+            .isInstanceOf(NegativeException.class)
+            .hasMessageContainingAll("Number is negative");
+
+    }
+
 
     @AfterEach
     void tearDown() {
