@@ -81,7 +81,29 @@ class BankTest {
         assertThat(result2.getAmount()).isEqualTo(BigDecimal.valueOf(2.560));
     }
 
+
+    @DisplayName("1,300원 -환전-> 1€")
+    @Test
+    void exchange_WonToOneEuro() throws NegativeException {
+        Money amountWon = new Money(BigDecimal.valueOf(1_300L),"won");
+        Money amountEuro = new Money(BigDecimal.valueOf(1),"euro");
+
+        Money result = bank.exchange(amountWon);
+        assertThat(result.equals(amountEuro)).isTrue();
+    }
+
+    @Test
+    void exchange_WonToOneEuro1() throws NegativeException {
+        Money thousandWon = new Money(BigDecimal.valueOf(1_300L),"won");
+
+        Money result = bank.exchange(thousandWon);
+        assertThat(result.getAmount()).isEqualTo(BigDecimal.valueOf(1));
+    }
+
     @AfterEach
     void tearDown() {
     }
+
+
+
 }
