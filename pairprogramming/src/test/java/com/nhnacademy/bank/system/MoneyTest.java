@@ -50,7 +50,7 @@ class MoneyTest {
         Money money1 = new Money(BigDecimal.valueOf(5),"dollar");
         Money money2 = new Money(BigDecimal.valueOf(5),"dollar");
         Money result = money1.add(money2);
-        assertThat(result.amount).isEqualTo(BigDecimal.valueOf(10));
+        assertThat(result.getAmount()).isEqualTo(BigDecimal.valueOf(10));
     }
 
     @Test

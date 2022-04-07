@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Money {
-    BigDecimal amount;
-    String currency;
+    private final String currency;
+    private BigDecimal amount;
 
     public Money(BigDecimal amount, String currency) throws NegativeException {
-        BigDecimal zero = BigDecimal.valueOf(0);
-        if (amount.compareTo(zero) == -1) {
+        if (isSmallerThan(amount)) {
             throw new NegativeException("Number is negative");
         }
         this.amount = amount;
@@ -17,11 +16,29 @@ public class Money {
     }
 
     public Money add(Money money) throws NegativeException, DifferentCurrencyException {
-        if (!(this.currency.equals(money.getCurrency()))) {
+        if (isEqualCurrency(money)) {
             throw new DifferentCurrencyException("different currency");
         }
         return new Money(this.amount.add(money.getAmount()), "dollar");
+    }
 
+    public void sub(Money money) throws ImpossibleSubtractException {
+        if (isSmallerThan(money)) {
+            throw new ImpossibleSubtractException("impossible subtract");
+        }
+        // TODO: sub 구현
+    }
+
+    private boolean isSmallerThan(BigDecimal amount) {
+        return amount.compareTo(BigDecimal.ZERO) == -1;
+    }
+
+    private boolean isSmallerThan(Money money) {
+        return this.amount.compareTo(money.getAmount()) == -1;
+    }
+
+    private boolean isEqualCurrency(Money money) {
+        return !(this.currency.equals(money.getCurrency()));
     }
 
     public BigDecimal getAmount() {
@@ -37,7 +54,6 @@ public class Money {
         return super.hashCode();
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -48,12 +64,5 @@ public class Money {
         }
         Money money = (Money) o;
         return Objects.equals(amount, money.getAmount());
-    }
-
-    public void sub(Money money2) throws ImpossibleSubtractException {
-        if (this.amount.compareTo(money2.getAmount()) == -1) {
-            throw new ImpossibleSubtractException("impossible subtract");
-        }
-        // TODO: sub 구현
     }
 }
