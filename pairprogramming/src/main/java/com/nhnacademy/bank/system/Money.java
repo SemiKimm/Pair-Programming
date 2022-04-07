@@ -16,10 +16,6 @@ public class Money {
         this.currency = currency;
     }
 
-    public Money(BigDecimal amount, Currency currency) throws NegativeException {
-        //TODO
-    }
-
     public Money add(Money money) throws NegativeException, DifferentCurrencyException {
         if (!(this.currency.equals(money.getCurrency()))) {
             throw new DifferentCurrencyException("different currency");
@@ -53,7 +49,6 @@ public class Money {
         Money money = (Money) o;
         return Objects.equals(amount, money.getAmount());
     }
-
 
     public void sub(Money money2) throws ImpossibleSubtractException {
         if (this.amount.compareTo(money2.getAmount()) == -1) {

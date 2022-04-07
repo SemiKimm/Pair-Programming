@@ -82,57 +82,7 @@ class BankTest {
         assertThat(result2.getAmount()).isEqualTo(BigDecimal.valueOf(2.560));
     }
 
-
-//    @DisplayName("1,300원 -환전-> 1€")
-//    @Test
-//    void exchange_WonToOneEuro() throws NegativeException {
-//        Money amountWon = new Money(BigDecimal.valueOf(1_300L),"won");
-//        Money amountEuro = new Money(BigDecimal.valueOf(1),"euro");
-//
-//        Money result = bank.exchange(amountWon);
-//        assertThat(result.equals(amountEuro)).isTrue();
-//    }
-//
-//    @Test
-//    void exchange_WonToOneEuro1() throws NegativeException {
-//        Money thousandWon = new Money(BigDecimal.valueOf(1_300L),"won");
-//
-//        Money result = bank.exchange(thousandWon);
-//        assertThat(result.getAmount()).isEqualTo(BigDecimal.valueOf(1));
-//    }
-
-    // 여기!!
-//    @DisplayName("원화를 외화로 환전하는 경우")
-//    @Test
-//    void exchange_wonToForeignCurrency() throws NegativeException {
-//        Money amountWon = new Money(BigDecimal.valueOf(1_000L),"won");
-//        Money expectForeignCurrency = new Money(BigDecimal.valueOf(1),new Currency("dollar"));
-//
-//        Money amountDollar = new Money(BigDecimal.valueOf(1),new Currency("dollar"));
-//        when(currency.wonToForeignCurrency()).thenReturn(amountDollar);
-//
-//        Money result = bank.exchange(amountWon);
-//        assertThat(result.equals(expectForeignCurrency)).isTrue();
-//    }
-//
-//    @DisplayName("외화를 원화로 환전하는 경우")
-//    @Test
-//    void exchange_foreignCurrencyToWon() throws NegativeException {
-//        Money amountEuro = new Money(BigDecimal.valueOf(1),"euro");
-//        Money expectWon = new Money(BigDecimal.valueOf(1_300),new Currency("won"));
-//
-//        Money amountWon = new Money(BigDecimal.valueOf(1_300),new Currency("won"));
-//        when(currency.foreignCurrencyToWon()).thenReturn(amountWon);
-//
-//        Money result = bank.exchange(amountEuro);
-//        assertThat(result.equals(expectWon)).isTrue();
-//    }
-
-
     @AfterEach
     void tearDown() {
     }
-
-
-
 }
