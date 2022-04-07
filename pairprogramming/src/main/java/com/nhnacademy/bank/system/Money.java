@@ -1,11 +1,12 @@
 package com.nhnacademy.bank.system;
 
 public class Money {
+    long amount;
     public Money(int amount) {
 
     }
 
-    public int getAmount() {
-        return 0;
+    public long getAmount() {
+        return this.amount;
     }
 }
