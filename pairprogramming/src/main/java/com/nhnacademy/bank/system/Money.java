@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class Money {
     long amount;
-    public Money(long amount) throws NegativeException {
-        this.amount = amount;
-
+    String currency;
+    public Money(long amount, String dollar) throws NegativeException {
         if(amount < 0){
             throw new NegativeException("Number is negative");
         }
+        this.amount = amount;
     }
 
     public long getAmount() {
         return this.amount;
     }
 
-    public Money add(Money money) {
-        return new Money(this.amount+money.getAmount());
+    public Money add(Money money) throws NegativeException {
+        return new Money(this.amount+money.getAmount(), "dollar");
     }
 
     @Override
@@ -35,8 +35,4 @@ public class Money {
         Money money = (Money) o;
         return Objects.equals(amount, money.getAmount());
     }
-
-
-
-
 }

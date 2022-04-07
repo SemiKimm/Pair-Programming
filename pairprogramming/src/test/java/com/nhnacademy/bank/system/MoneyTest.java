@@ -2,7 +2,6 @@ package com.nhnacademy.bank.system;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +15,9 @@ class MoneyTest {
 
     @DisplayName("1,000원 + 1,000원 = 2,000원")
     @Test
-    void add(){
-        Money money1 = new Money(1_000);
-        Money money2 = new Money(1_000);
+    void add() throws NegativeException {
+        Money money1 = new Money(1_000, "dollar");
+        Money money2 = new Money(1_000, "dollar");
 
         Money result = money1.add(money2);
 
@@ -28,20 +27,37 @@ class MoneyTest {
 
     @DisplayName("2,000원과 2,000원은 같다.(equals)")
     @Test
-    void equals(){
-        Money money1 = new Money(2_000);
-        Money money2 = new Money(2_000);
+    void equals() throws NegativeException {
+        Money money1 = new Money(2_000, "dollar");
+        Money money2 = new Money(2_000, "dollar");
 
         assertThat(money1.equals(money2)).isTrue();
     }
 
+    @DisplayName("돈은 음수일 수 없다.")
     @Test
     void moneyIsNegative(){
-        Money money1 = new Money(-1L);
-        assertThatThrownBy(() -> new Money(-1L))
+        assertThatThrownBy(() -> new Money(-1L, "dollar"))
             .isInstanceOf(NegativeException.class)
             .hasMessageContainingAll("Number is negative");
+    }
 
+    @DisplayName("5$ + 5$ = 10$")
+    @Test
+    void add_fiveDollarPlusFiveDollar() throws NegativeException {
+        Money money1 = new Money(5,"dollar");
+        Money money2 = new Money(5,"dollar");
+        Money result = money1.add(money2);
+        assertThat(result.amount).isEqualTo(10);
+    }
+
+    @Test
+    void add_fiveDollarPlusFiveWon_throwsException() throws NegativeException {
+        Money money1 = new Money(5, "dollar");
+        Money money2 = new Money(5, "won");
+        assertThatThrownBy(()->money1.add(money2))
+            .isInstanceOf(DifferentCurrency.class)
+            .hasMessageContainingAll("different currency");
     }
 
 
