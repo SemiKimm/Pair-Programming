@@ -15,8 +15,11 @@ public class Bank {
             return new Money(exchangeAmt, "won");
         } else {
             BigDecimal exchangeAmt = money.getAmount().divide(BigDecimal.valueOf(1_000));
-                exchangeAmt = exchangeAmt.setScale(2, RoundingMode.HALF_UP);
-
+            exchangeAmt = exchangeAmt.setScale(2, RoundingMode.HALF_UP);
+            BigDecimal a = exchangeAmt.setScale(0,RoundingMode.FLOOR);
+            if(exchangeAmt.compareTo(a)==0){
+                exchangeAmt = exchangeAmt.setScale(0);
+            }
             return new Money(exchangeAmt, "dollar");
         }
     }

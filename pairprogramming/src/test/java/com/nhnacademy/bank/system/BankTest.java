@@ -31,6 +31,14 @@ class BankTest {
         assertThat(result.equals(oneDollar)).isTrue();
     }
 
+    @Test
+    void exchange_thousandWonToOneDollar_1() throws NegativeException {
+        Money thousandWon = new Money(BigDecimal.valueOf(1_000L),"won");
+
+        Money result = bank.exchange(thousandWon);
+        assertThat(result.getAmount()).isEqualTo(BigDecimal.valueOf(1));
+    }
+
     @DisplayName("5.25$ -> 5,250원")
     @Test
     void exchange_decimalPointDollarToWon() throws NegativeException {
