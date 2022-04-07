@@ -1,6 +1,7 @@
 package com.nhnacademy.bank.system;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Bank {
     public static Money exchange(Money money) throws NegativeException {
@@ -14,11 +15,8 @@ public class Bank {
             return new Money(exchangeAmt, "won");
         } else {
             BigDecimal exchangeAmt = money.getAmount().divide(BigDecimal.valueOf(1_000));
-            if(exchangeAmt.remainder(BigDecimal.valueOf(1_000)).compareTo(BigDecimal.valueOf(5))==0||
-                exchangeAmt.remainder(BigDecimal.valueOf(1_000)).compareTo(BigDecimal.valueOf(5))==1){
-                BigDecimal a = BigDecimal.valueOf(10).subtract(exchangeAmt.remainder(BigDecimal.valueOf(10)));
-                exchangeAmt = exchangeAmt.add(a); //TODO:반올림넣기
-            }
+                exchangeAmt = exchangeAmt.setScale(2, RoundingMode.HALF_UP);
+
             return new Money(exchangeAmt, "dollar");
         }
     }
