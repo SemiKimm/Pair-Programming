@@ -18,13 +18,13 @@ class MoneyTest {
     @DisplayName("1,000원 + 1,000원 = 2,000원")
     @Test
     void add() throws NegativeException, DifferentCurrencyException {
-        Money money1 = new Money(BigDecimal.valueOf(2_000), "dollar");
-        Money money2 = new Money(BigDecimal.valueOf(2_000), "dollar");
+        Money money1 = new Money(BigDecimal.valueOf(1_000), "dollar");
+        Money money2 = new Money(BigDecimal.valueOf(1_000), "dollar");
 
         Money result = money1.add(money2);
 
         assertThat(result.getAmount())
-            .isEqualTo(2_000);
+            .isEqualTo(BigDecimal.valueOf(2_000));
     }
 
     @DisplayName("2,000원과 2,000원은 같다.(equals)")
@@ -50,7 +50,7 @@ class MoneyTest {
         Money money1 = new Money(BigDecimal.valueOf(5),"dollar");
         Money money2 = new Money(BigDecimal.valueOf(5),"dollar");
         Money result = money1.add(money2);
-        assertThat(result.amount).isEqualTo(10);
+        assertThat(result.amount).isEqualTo(BigDecimal.valueOf(10));
     }
 
     @Test
