@@ -1,32 +1,35 @@
 package com.nhnacademy.bank.system;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Objects;
 
 public class Money {
-    long amount;
+    BigDecimal amount;
 
     public String getCurrency() {
         return currency;
     }
 
     String currency;
-    public Money(long amount, String currency) throws NegativeException {
-        if(amount < 0){
+    public Money(BigDecimal amount, String currency) throws NegativeException {
+        BigDecimal zero = BigDecimal.valueOf(0);
+        if(amount.compareTo(zero) == -1){
             throw new NegativeException("Number is negative");
         }
         this.amount = amount;
         this.currency = currency;
     }
 
-    public long getAmount() {
+    public BigDecimal getAmount() {
         return this.amount;
     }
 
-    public Money add(Money money) throws NegativeException, DifferentCurrency {
+    public Money add(Money money) throws NegativeException, DifferentCurrencyException {
         if(!(this.currency.equals(money.getCurrency()))){
-            throw new DifferentCurrency("different currency");
+            throw new DifferentCurrencyException("different currency");
         }
-        return new Money(this.amount+money.getAmount(), "dollar");
+        return new Money(this.amount.add(money.getAmount()), "dollar");
 
     }
 
@@ -47,4 +50,10 @@ public class Money {
     }
 
 
+    public void sub(Money money2) throws ImpossibleSubtractException {
+        if(this.amount.compareTo(money2.getAmount())==-1){
+            throw new ImpossibleSubtractException("impossible subtract");
+        }
+        // TODO: sub 구현
+    }
 }
